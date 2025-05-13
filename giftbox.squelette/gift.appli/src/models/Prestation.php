@@ -12,4 +12,5 @@ class Prestation extends Model {
     public function categorie() {
         return $this->belongsTo(Categorie::class, 'cat_id');
     }
+
 }

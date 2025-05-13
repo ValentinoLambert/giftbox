@@ -12,4 +12,5 @@ class Categorie extends Model {
     public function prestations() {
         return $this->hasMany(Prestation::class, 'cat_id');
     }
+
 }

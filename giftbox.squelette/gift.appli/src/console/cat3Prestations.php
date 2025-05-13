@@ -18,6 +18,7 @@ try {
 
     foreach ($categorie->prestations as $prestation) {
         echo "- Libellé: {$prestation->libelle}, Tarif: {$prestation->tarif}, Unité: {$prestation->unite}\n";
+
     }
 
 } catch (ModelNotFoundException $e) {

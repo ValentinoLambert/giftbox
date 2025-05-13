@@ -11,6 +11,7 @@ Eloquent::init(__DIR__ . '/../conf/gift.db.conf.ini');
 V1 :
 prestations = Prestation::all();
 
+
 foreach ($prestations as $prestation) {
     echo "Libellé prestation: {$prestation->libelle}\n";
     echo "Catégorie: {$prestation->categorie->libelle}\n";
