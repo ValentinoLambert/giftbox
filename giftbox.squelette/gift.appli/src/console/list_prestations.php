@@ -14,5 +14,5 @@ foreach ($prestations as $prestation) {
     echo "Description: {$prestation->description}\n";
     echo "Tarif: {$prestation->tarif}\n";
     echo "Unité: {$prestation->unite}\n";
-    echo "-------------------------\n";
+    echo "\n";
 }
