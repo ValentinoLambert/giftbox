@@ -1,90 +1,53 @@
 <?php
 declare(strict_types=1);
 
-use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\App;
+use Slim\Exception\HttpBadRequestException;
 
 return function (App $app): App {
-    // Route 1 : Affichage des catégories
-    $app->get('/categories', function (Request $request, Response $response): Response {
-        $categories = [
-            ['id' => 1, 'libelle' => 'Catégorie 1'],
-            ['id' => 2, 'libelle' => 'Catégorie 2'],
-            ['id' => 3, 'libelle' => 'Catégorie 3'],
-        ];
 
+    // Route 1 : liste des catégories
+    $app->get('/categories', function(Request $request, Response $response, array $args): Response {
         $html = <<<HTML
-        <html>
-        <head><title>Liste des catégories</title></head>
-        <body>
-        <h1>Liste des catégories</h1>
-        <ul>
+            <h1>Liste des catégories</h1>
+            <ul>
+                <li><a href="/categorie/1">Catégorie 1</a></li>
+                <li><a href="/categorie/2">Catégorie 2</a></li>
+                <li><a href="/categorie/3">Catégorie 3</a></li>
+            </ul>
         HTML;
-
-        foreach ($categories as $categorie) {
-            $html .= "<li><a href='/categorie/{$categorie['id']}'>{$categorie['libelle']}</a></li>";
-        }
-
-        $html .= <<<HTML
-        </ul>
-        </body>
-        </html>
-        HTML;
-
         $response->getBody()->write($html);
-        return $response->withHeader('Content-Type', 'text/html');
+        return $response;
     });
 
-    // Route 2 : Affichage d'une catégorie
-    $app->get('/categorie/{id}', function (Request $request, Response $response, array $args): Response {
+    // Route 2 : détail d'une catégorie
+    $app->get('/categorie/{id}', function(Request $request, Response $response, array $args): Response {
         $id = $args['id'];
         $html = <<<HTML
-        <html>
-        <head><title>Catégorie $id</title></head>
-        <body>
-        <h1>Catégorie $id</h1>
-        <p>Informations statiques sur la catégorie $id.</p>
-        <a href="/categories">Retour à la liste des catégories</a>
-        </body>
-        </html>
+            <h1>Détail de la catégorie $id</h1>
+            <p>Informations statiques de la catégorie $id.</p>
         HTML;
-
         $response->getBody()->write($html);
-        return $response->withHeader('Content-Type', 'text/html');
+        return $response;
     });
 
-    // Route 3 : Affichage d'une prestation
-    $app->get('/prestation', function (Request $request, Response $response): Response {
-        $queryParams = $request->getQueryParams();
-        if (!isset($queryParams['id'])) {
-            $html = <<<HTML
-            <html>
-            <head><title>Erreur</title></head>
-            <body>
-            <h1>Erreur</h1>
-            <p>Le paramètre "id" est manquant dans la query-string.</p>
-            </body>
-            </html>
-            HTML;
+    // Route 3 : prestation via query string
+    $app->get('/prestation', function(Request $request, Response $response, array $args): Response {
+        $params = $request->getQueryParams();
+        $id = $params['id'] ?? null;
 
-            $response->getBody()->write($html);
-            return $response->withHeader('Content-Type', 'text/html')->withStatus(400);
+        if (is_null($id)) {
+            throw new HttpBadRequestException($request, "Paramètre 'id' manquant dans l'URL");
         }
 
-        $id = htmlspecialchars($queryParams['id']);
         $html = <<<HTML
-        <html>
-        <head><title>Prestation $id</title></head>
-        <body>
-        <h1>Prestation $id</h1>
-        <p>Informations statiques sur la prestation $id.</p>
-        </body>
-        </html>
+            <h1>Prestation $id</h1>
+            <p>Détails de la prestation $id (informations statiques).</p>
         HTML;
-
         $response->getBody()->write($html);
-        return $response->withHeader('Content-Type', 'text/html');
+        return $response;
     });
 
     return $app;
