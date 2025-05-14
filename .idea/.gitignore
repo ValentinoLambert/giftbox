@@ -7,5 +7,5 @@
 /dataSources/
 /dataSources.local.xml
 /vendor/
-composer.json
-composer.lock
+/giftbox.squelette/gift.appli/src/composer.json
+/giftbox.squelette/gift.appli/src/composer.lock
