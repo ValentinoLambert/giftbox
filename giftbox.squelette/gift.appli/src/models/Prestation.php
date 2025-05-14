@@ -12,4 +12,13 @@ class Prestation extends Model
     protected $keyType = 'string';
     public $timestamps = false;
     protected $fillable = ['libelle', 'description', 'tarif', 'unite', 'url', 'img', 'cat_id'];
+
+    public function coffrets(){
+        return $this->belongsToMany(
+            CoffretType::class,
+            'coffret2presta',
+            'presta_id',
+            'coffret_id'
+        );
+    }
 }
