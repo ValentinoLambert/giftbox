@@ -7,10 +7,9 @@ use gift\appli\models\Prestation;
 
 Eloquent::init(__DIR__ . '/../conf/gift.db.conf.ini');
 
-<<<<<<< HEAD
+
 //Exercice 5) a
-=======
->>>>>>> 567d0983f32444892b2ea2ea2c74057ba9818a0f
+
 try {
     $coffrets = CoffretType::with('prestations')->get();
     echo "Liste des coffrets types :</br>";
@@ -25,10 +24,10 @@ try {
     echo "Erreur : " . $e->getMessage() . "</br>";
 }
 
-<<<<<<< HEAD
+
 //Exercice 5)b
-=======
->>>>>>> 567d0983f32444892b2ea2ea2c74057ba9818a0f
+
+
 $coffret = CoffretType::with('prestations')->first();
 
 if ($coffret) {
