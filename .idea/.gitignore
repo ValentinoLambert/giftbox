@@ -8,4 +8,4 @@
 /dataSources.local.xml
 /giftbox.squelette/gift.appli/src/composer.json
 /giftbox.squelette/gift.appli/src/composer.lock
-/giftbox.squelette/gift.appli/src/vendor
+vendor
