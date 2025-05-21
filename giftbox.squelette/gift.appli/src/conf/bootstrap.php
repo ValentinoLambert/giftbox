@@ -18,6 +18,7 @@ $twig = Twig::create(__DIR__ . '/../views', ['cache' => false]);
 
 $app->add(TwigMiddleware::create($app, $twig));
 
+$twig->getEnvironment()->addGlobal('routeParser', $app->getRouteCollector()->getRouteParser());
 (require_once __DIR__ . '/routes.php')($app);
 
 return $app;
