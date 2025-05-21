@@ -5,6 +5,7 @@ namespace gift\appli\controlers;
 use gift\appli\models\Categorie;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\Twig;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 
@@ -21,7 +22,7 @@ class GetCategorieByIdAction extends AbstractAction {
             throw new HttpNotFoundException($rq, 'Catégorie non trouvée');
         }
 
-        $rs->getBody()->write(json_encode($cat));
-        return $rs->withHeader('Content-Type', 'application/json');
+        $view = Twig::fromRequest($rq);
+        return $view->render($rs, 'categorie.twig', ['categorie' => $cat]);
     }
 }
