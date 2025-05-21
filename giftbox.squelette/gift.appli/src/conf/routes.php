@@ -9,9 +9,9 @@ use gift\appli\controlers\GetPrestationAction;
 
 return function (App $app) : App {
     $app->get('/', HomeAction::class);
-    $app->get('/categories', GetCategoriesAction::class);
-    $app->get('/categorie/{id}', GetCategorieByIdAction::class);
-    $app->get('/prestation', GetPrestationAction::class);
+    $app->get('/categories', GetCategoriesAction::class)->setName('categories');
+    $app->get('/categorie/{id}', GetCategorieByIdAction::class)->setName('categorie');
+    $app->get('/prestation', GetPrestationAction::class)->setName('prestation');
 
     return $app;
 };
