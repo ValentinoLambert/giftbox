@@ -18,4 +18,5 @@ return function (App $app) : App {
     $app->get('/coffret/{id}', GetDetailCoffretAction::class)->setName('coffret');
 
     return $app;
+
 };
